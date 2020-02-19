@@ -1,0 +1,30 @@
+%token: ; while ( ) { } else if switch i case c : default && || > < >= <= == != + - * / i c vacio
+PROGRAMA --> lista_sentencias
+lista_sentencias --> sentencia lista_sentencias'
+lista_sentencias' --> sentencia lista_sentencias' | vacio
+sentencia --> E ; | WHILE | IF_ELSE | SWITCH_CASE
+WHILE --> while ( condicion ) WHILE'
+WHILE' --> sentencia | { lista_sentencias }
+IF_ELSE --> IF else IF_ELSE'
+IF_ELSE' --> sentencia | { lista_sentencias }
+IF --> if ( condicion ) IF'
+IF' --> sentencia | { lista_sentencias }
+SWITCH_CASE --> switch ( i ) { lista_CASE SWITCH_CASE'
+SWITCH_CASE' --> } | DEFAULT }
+lista_CASE --> CASE lista_CASE'
+lista_CASE' --> CASE lista_CASE' | vacio
+CASE --> case c : CASE'
+CASE' --> sentencia | { lista_sentencias }
+DEFAULT --> default : DEFAULT'
+DEFAULT' --> sentencia | { lista_sentencias }
+condicion --> condicion_logica condicion'
+condicion' --> vacio | && condicion_logica | || condicion_logica
+condicion_logica --> E condicion_logica' E
+condicion_logica' --> > | < | >= | <= | == | !=
+E --> T E''
+E'' --> E' E'' | vacio
+E' --> + T | - T
+T --> F T''
+T'' --> T' T'' | vacio
+T' --> * F | / F
+F --> i | c
